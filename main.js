@@ -1,7 +1,25 @@
+//global constants
+const DEFAULT_SIZE = 16;
 //declare important variables
 let drawing = false;
+let color = "black";
+let currentSize = DEFAULT_SIZE;
 
+//grid container
 const gridContainer = document.querySelector(".grid-container");
+
+//buttons and inputs
+
+const colorPicker = document.querySelector("#colorPicker");
+const eraser = document.querySelector(".eraser");
+const clear = document.querySelector(".clear");
+const sizeValue = document.querySelector("#sizeValue");
+const sizeSlider = document.querySelector("#sizeSlider");
+
+//Event listeners
+colorPicker.oninput = (e) => setCurrentColor(e.target.value);
+sizeSlider.onmousemove = (e) => updateSizeValue(e.target.value);
+sizeSlider.onchange = (e) => changeGridSize(e.target.value);
 
 //secondary functions
 
@@ -11,6 +29,46 @@ function startPosition() {
 
 function finishedPosition() {
   drawing = false;
+}
+
+//create a function that enables drawing in the grid -> the color of the cells will change
+function draw() {
+  if (!drawing) return;
+  this.style.background = color;
+}
+
+//set the current color
+function setCurrentColor(newColor) {
+  color = newColor;
+}
+
+//set the current size of the grid
+
+function setCurrentSize(newSize) {
+  currentSize = newSize;
+}
+
+//clear grid
+function clearGrid() {
+  gridContainer.innerHTML = "";
+}
+
+//change the size of the grid
+function changeGridSize(value) {
+  setCurrentSize(value);
+  updateSizeValue(value);
+  reloadGrid();
+}
+
+//update the size of the grid inside the html
+function updateSizeValue(currentValue) {
+  sizeValue.textContent = `${currentValue}x${currentValue}`;
+}
+
+//when the size is changed the drawing is lost and a new grid is created
+function reloadGrid() {
+  clearGrid();
+  createGrid(currentSize);
 }
 
 //MAIN FUNCTION
@@ -35,12 +93,7 @@ function createGrid(gridSize) {
   }
 }
 
-//create a function that enables drawing in the grid -> the color of the cells will change to black
-
-function draw() {
-  if (!drawing) return;
-  this.style.background = "black";
-}
-
-//Calling the MAIN FUNCTION: createGrid()
-createGrid(16);
+//Calling the MAIN FUNCTION when the page loads: createGrid()
+window.onload = () => {
+  createGrid(DEFAULT_SIZE);
+};

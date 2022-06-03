@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/Images/pen.png" />
     <link rel="stylesheet" href="/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,6 +19,22 @@
       <h1>Etch-a-Sketch</h1>
     </header>
     <div class="grid-container"></div>
+
+    <div id="sizeValue" class="size-value">16x16</div>
+    <input type="range" id="sizeSlider" value="16" min="1" max="64" />
+    <div class="button-container">
+      <input id="colorPicker" type="color" value="#000000" />
+      <button
+        onclick="setCurrentColor('white')"
+        type="button"
+        class="button eraser"
+      >
+        Eraser
+      </button>
+      <button onclick="reloadGrid()" type="button" class="button clear">
+        Clear
+      </button>
+    </div>
 
     <script src="main.js"></script>
   </body>
